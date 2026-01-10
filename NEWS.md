@@ -1,3 +1,8 @@
+# dynamicpv 0.4.1
+
+* Revised vignettes
+* Extended description for CRAN readiness
+
 # dynamicpv 0.4.0
 
 * Converted S7 classes and methods to S3
