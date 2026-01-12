@@ -1,23 +1,40 @@
 # dynamicpv: Evaluate present values and cost-effectiveness with dynamic pricing and uptake
 
-The goal of *dynamicpv* is to evaluate present values and
-cost-effectiveness with dynamic pricing and uptake.
+The goal of ‘dynamicpv’ is to provide a simple way to calculate (net)
+present values and outputs from health economic models (especially
+cost-effectiveness and budget impact) in discrete time that reflect
+dynamic pricing and dynamic uptake.
+
+Dynamic pricing is also known as life cycle pricing; dynamic uptake is
+also known as multiple or stacked cohorts, or dynamic disease
+prevalence. [Shafrin (2024)](https://doi.org/10.1515/fhep-2024-0014)
+provides an explanation of dynamic value elements, in the context of
+Generalized Cost Effectiveness Analysis, and [Puls
+(2024)](https://doi.org/10.1016/j.jval.2024.03.006) reviews challenges
+of incorporating such dynamic value elements. This package aims to
+reduce those challenges.
 
 Through the
 [dynpv()](https://msdllcpapers.github.io/dynamicpv/reference/dynpv.html)
 function, the package provides calculations of the present values of
 costs, life years, QALYs or other payoffs allowing for dynamic uptake
-(also known as multiple cohorts) and dynamic pricing (also known as
-life-cycle). The starting point is a conventional cohort
+and dynamic pricing. The starting point is a conventional cohort
 cost-effectiveness model, such as one computed using the
 [heemod](https://cran.r-project.org/package=heemod) package.
 
 ## Installation
 
+The package should shortly be available on
+[CRAN](https://cran.r-project.org/web/packages/index.html). Installing
+from here is simplest, once available.
+
+``` r
+# CRAN installation - when available
+install.packages("dynamicpv")
+```
+
 You can install the development version of *dynamicpv* from
-[GitHub](https://github.com/) as follows. (The package was previously
-known as *dynacem*, but *dynamicpv* better reflects the package’s
-intent.)
+[GitHub](https://github.com/) as follows.
 
 ``` r
 # Install devtools package if not already installed
@@ -28,8 +45,8 @@ pak::pak("MSDLLCpapers/dynamicpv")
 ```
 
 Note that the above does not install vignettes. Vignettes may be viewed
-on the [package website](https://msdllcpapers.github.io/dynacem) or by
-instead running the following.
+on the [package website](https://msdllcpapers.github.io/dynamicpv/) or
+by instead running the following.
 
 ``` r
 devtools::install_github("MSDLLCpapers/dynamicpv", build_vignettes=TRUE)
@@ -53,40 +70,36 @@ library(tidyr)
 
 There are four vignettes provided.
 
-1.  The [Dynamic
-    Pricing](https://msdllcpapers.github.io/dynamicpv/articles/dynamic-pricing.html)
+1.  The [Mathematical
+    Framework](https://msdllcpapers.github.io/dynamicpv/articles/math-framework.html)
     vignette
-    ([`vignette("dynamic-pricing")`](https://MSDLLCpapers.github.io/dynacem/articles/dynamic-pricing.md))
-    describes how present values may be calculated in the package from a
-    payoff vector, allowing for the prices of the resources costed to be
-    dynamic.
+    ([`vignette("math-framework")`](https://MSDLLCpapers.github.io/dynamicpv/articles/math-framework.md))
+    describes the motivation and mathematical framework behind this
+    package.
 
-2.  The [Dynamic
-    Uptake](https://msdllcpapers.github.io/dynamicpv/articles/dynamic-uptake.html)
+2.  The [Net Present
+    Value](https://msdllcpapers.github.io/dynamicpv/articles/net-present-value.html)
     vignette
-    ([`vignette("dynamic-uptake")`](https://MSDLLCpapers.github.io/dynacem/articles/dynamic-uptake.md))
-    explores further how present values can be derived allowing for
-    dynamic uptake. This is in contrast to the non-dynamic approach of
-    calculating a present value for a single cohort of patients. This is
-    analogous to the use by general insurance actuaries of run-off
-    triangles.
+    ([`vignette("net-present-value")`](https://MSDLLCpapers.github.io/dynamicpv/articles/net-present-value.md))
+    describes how the package can be used to derive Net Present Values
+    of simple cashflows with dynamic pricing and/or dynamic uptake.
 
 3.  The [Cost-Effectiveness
     Applications](https://msdllcpapers.github.io/dynamicpv/articles/cost-effectiveness-applications.html)
-    (`vignette(cost-effectiveness-applications")`) vignette describes
-    how, given a static cost-effectiveness model (single cohort, prices
-    constant in real terms), Incremental Cost-Effectiveness Ratios may
-    be calculated that allow for dynamic pricing and/or dynamic uptake.
-    This is illustrated by taking an example three-state partitioned
-    survival model of a new intervention for an oncology indication
-    compared to standard of care, with stated assumptions for how
-    pricing and uptake may be dynamic. Nominal and Real ICERs are
-    plotted over time, illustrating the impact of the loss of
-    exclusivity points for each intervention.
+    ([`vignette("cost-effectiveness-applications")`](https://MSDLLCpapers.github.io/dynamicpv/articles/cost-effectiveness-applications.md))
+    vignette describes how, given a static cost-effectiveness model
+    (single cohort, prices constant in real terms), Incremental
+    Cost-Effectiveness Ratios may be calculated that allow for dynamic
+    pricing and/or dynamic uptake. This is illustrated by taking an
+    example three-state partitioned survival model of a new intervention
+    for an oncology indication compared to standard of care, with stated
+    assumptions for how pricing and uptake may be dynamic. Nominal and
+    Real ICERs are plotted over time, illustrating the impact of the
+    loss of exclusivity points for each intervention.
 
 4.  The [Budget Impact
     Applications](https://msdllcpapers.github.io/dynamicpv/articles/budget-impact-applications.html)
-    ([`vignette("budget-impact-applications")`](https://MSDLLCpapers.github.io/dynacem/articles/budget-impact-applications.md))
+    ([`vignette("budget-impact-applications")`](https://MSDLLCpapers.github.io/dynamicpv/articles/budget-impact-applications.md))
     vignette describes how, given a static cost-effectiveness model
     (single cohort, prices constant in real terms) and dynamic uptake, a
     budget impact can be readily calculated. The calculations are
@@ -98,45 +111,45 @@ There are four vignettes provided.
 
 ## Key functions and datasets
 
-- [`dynpv()`](https://MSDLLCpapers.github.io/dynacem/reference/dynpv.md)
+- [`dynpv()`](https://MSDLLCpapers.github.io/dynamicpv/reference/dynpv.md)
   : Present values with dynamic pricing and dynamic uptake
-- [`futurepv()`](https://MSDLLCpapers.github.io/dynacem/reference/futurepv.md)
+- [`futurepv()`](https://MSDLLCpapers.github.io/dynamicpv/reference/futurepv.md)
   : Calculate present value for a payoff in a single cohort with dynamic
   pricing across multiple timepoints
-- [`oncpsm`](https://MSDLLCpapers.github.io/dynacem/reference/oncpsm.md)
+- [`oncpsm`](https://MSDLLCpapers.github.io/dynamicpv/reference/oncpsm.md)
   : Heemod cost-effectiveness model example
 
 ## Methods to apply to dynpv S3 objects
 
-- [`` `+`( ``*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynacem/reference/plus-.dynpv.md)
+- [`` `+`( ``*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynamicpv/reference/plus-.dynpv.md)
   : Method to add two dynpv objects together
-- [`` `-`( ``*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynacem/reference/dot-dynpv.md)
+- [`` `-`( ``*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynamicpv/reference/dot-dynpv.md)
   : Method to subtract one dynpv object from another
-- [`mean(`*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynacem/reference/mean.dynpv.md)
+- [`mean(`*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynamicpv/reference/mean.dynpv.md)
   : Mean present value per uptaking patient
-- [`ncoh()`](https://MSDLLCpapers.github.io/dynacem/reference/ncoh.md) :
-  Number of cohorts of uptaking patients
-- [`ntimes()`](https://MSDLLCpapers.github.io/dynacem/reference/ntimes.md)
+- [`ncoh()`](https://MSDLLCpapers.github.io/dynamicpv/reference/ncoh.md)
+  : Number of cohorts of uptaking patients
+- [`ntimes()`](https://MSDLLCpapers.github.io/dynamicpv/reference/ntimes.md)
   : Number of times at which present value calculations are performed
-- [`sum_by_coh()`](https://MSDLLCpapers.github.io/dynacem/reference/sum_by_coh.md)
+- [`sum_by_coh()`](https://MSDLLCpapers.github.io/dynamicpv/reference/sum_by_coh.md)
   : Present value for each uptake cohort and calculation time
-- [`summary(`*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynacem/reference/summary.dynpv.md)
+- [`summary(`*`<dynpv>`*`)`](https://MSDLLCpapers.github.io/dynamicpv/reference/summary.dynpv.md)
   : Summarize a dynpv object
-- [`total()`](https://MSDLLCpapers.github.io/dynacem/reference/total.md)
+- [`total()`](https://MSDLLCpapers.github.io/dynamicpv/reference/total.md)
   : Total present value
-- [`uptake()`](https://MSDLLCpapers.github.io/dynacem/reference/uptake.md)
+- [`uptake()`](https://MSDLLCpapers.github.io/dynamicpv/reference/uptake.md)
   : Total number of uptaking patients
 
 ## Helper functions
 
-- [`addprod()`](https://MSDLLCpapers.github.io/dynacem/reference/addprod.md)
+- [`addprod()`](https://MSDLLCpapers.github.io/dynamicpv/reference/addprod.md)
   : Method to add two dynpv objects together
-- [`get_dynfields()`](https://MSDLLCpapers.github.io/dynacem/reference/get_dynfields.md)
+- [`get_dynfields()`](https://MSDLLCpapers.github.io/dynamicpv/reference/get_dynfields.md)
   : Helper function to get a tibble of the relevant fields from heemod
   output
-- [`get_param_value()`](https://MSDLLCpapers.github.io/dynacem/reference/get_param_value.md)
+- [`get_param_value()`](https://MSDLLCpapers.github.io/dynamicpv/reference/get_param_value.md)
   : Obtain parameter value(s) from a heemod output
-- [`trim_vec()`](https://MSDLLCpapers.github.io/dynacem/reference/trim_vec.md)
+- [`trim_vec()`](https://MSDLLCpapers.github.io/dynamicpv/reference/trim_vec.md)
   : Trim the tailing zeroes from a long vector
 
 # Articles
@@ -144,10 +157,10 @@ There are four vignettes provided.
 ### All vignettes
 
 - [Budget Impact
-  Applications](https://MSDLLCpapers.github.io/dynacem/articles/budget-impact-applications.md):
+  Applications](https://MSDLLCpapers.github.io/dynamicpv/articles/budget-impact-applications.md):
 - [Cost-Effectiveness
-  Applications](https://MSDLLCpapers.github.io/dynacem/articles/cost-effectiveness-applications.md):
-- [Dynamic
-  Pricing](https://MSDLLCpapers.github.io/dynacem/articles/dynamic-pricing.md):
-- [Dynamic
-  Uptake](https://MSDLLCpapers.github.io/dynacem/articles/dynamic-uptake.md):
+  Applications](https://MSDLLCpapers.github.io/dynamicpv/articles/cost-effectiveness-applications.md):
+- [Mathematical
+  Framework](https://MSDLLCpapers.github.io/dynamicpv/articles/math-framework.md):
+- [Net Present
+  Value](https://MSDLLCpapers.github.io/dynamicpv/articles/net-present-value.md):
